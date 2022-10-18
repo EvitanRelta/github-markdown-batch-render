@@ -10,8 +10,6 @@ Uses only 1 GitHub-API request to render all the markdown strings.
 
 ## Install
 
-<br>
-
 ```bash
 npm i github-markdown-batch-render
 ```
