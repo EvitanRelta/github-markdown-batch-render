@@ -43,7 +43,7 @@ const octokit = new Octokit({ auth: 'personalaccesstoken' })
 const renderedMarkdowns = await ghMdBatchRender(markdowns, { octokit })
 ```
 
-<br>Passing passing `mode` / `context` option to the [`Octokit.rest.markdown.render`](https://octokit.github.io/rest.js/v19#markdown-render) method:
+<br>Passing `mode` / `context` option(s) to the [`Octokit.rest.markdown.render`](https://octokit.github.io/rest.js/v19#markdown-render) method:
 
 > Note: `ghMdBatchRender`'s `mode` option defaults to `"gfm"` unlike Octokit, which defaults to `"markdown"`.
 
