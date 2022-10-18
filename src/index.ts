@@ -13,8 +13,7 @@ const getRandomBase62Str = (length: number) =>
 export type Options = {
     /**
      * The rendering mode.
-     *
-     * *Default: `"gfm" `*
+     * @default "gfm"
      * */
     mode?: 'gfm' | 'markdown'
     /**
