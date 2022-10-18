@@ -2,7 +2,7 @@
     "name": "github-markdown-batch-render",
     "description": "To batch-render Markdown strings via GitHub's API (using Octokit/REST). For mitigating GitHub's API's request rate-limit.",
     "repository": "github:EvitanRelta/github-markdown-batch-render",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
