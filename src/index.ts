@@ -10,6 +10,27 @@ const getRandomBase62Char = () => getBase62Char(Math.floor(Math.random() * 62))
 const getRandomBase62Str = (length: number) =>
     Array(length).fill(null).map(getRandomBase62Char).join('')
 
+export class MarkdownBatchParsingError extends Error {
+    markdowns: string[]
+    renderedMarkdowns: string[]
+    rawRenderedMarkdown: string
+    separator: string
+
+    constructor(
+        msg: string,
+        markdowns: string[],
+        renderedMarkdowns: string[],
+        rawRenderedMarkdown: string,
+        separator: string
+    ) {
+        super(msg)
+        this.markdowns = markdowns
+        this.renderedMarkdowns = renderedMarkdowns
+        this.rawRenderedMarkdown = rawRenderedMarkdown
+        this.separator = separator
+    }
+}
+
 export type Options = {
     /**
      * The rendering mode.
@@ -41,5 +62,16 @@ export const ghMdBatchRender = async (markdowns: string[], options: Options = {}
     const htmlStr = await octokit.rest.markdown
         .render({ text: markdowns.join(separator), mode, context })
         .then((x) => x.data)
-    return htmlStr.split(new RegExp(`\n<p[^>]*>${base62Str}<\\/p>\n`))
+    const renderedMarkdowns = htmlStr.split(new RegExp(`\n<p[^>]*>${base62Str}<\\/p>\n`))
+
+    if (renderedMarkdowns.length !== markdowns.length)
+        throw new MarkdownBatchParsingError(
+            'Error during parsing. Mismatch in output & input array lengths.',
+            markdowns,
+            renderedMarkdowns,
+            htmlStr,
+            base62Str
+        )
+
+    return renderedMarkdowns
 }
